@@ -538,7 +538,8 @@ def vsphere_host(resource, module_name):
     attrs.update({
         'consul_dc': _clean_dc(attrs['metadata'].get('consul_dc', module_name)),
         'role': attrs['metadata'].get('role', 'none'),
-        'ansible_python_interpreter': attrs['metadata'].get('python_bin','python')
+        'ansible_python_interpreter': attrs['metadata'].get('python_bin','python'),
+        'network_label': network.get('label', 'none')
     })
 
     # attrs specific to Ansible
@@ -547,6 +548,7 @@ def vsphere_host(resource, module_name):
 
     groups.append('role=' + attrs['role'])
     groups.append('dc=' + attrs['consul_dc'])
+    groups.append('network_label=' + attrs['network_label'])
 
     return name, attrs, groups
 
